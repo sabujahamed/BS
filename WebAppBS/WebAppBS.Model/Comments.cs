@@ -14,7 +14,7 @@ namespace WebAppBS.Model
         public int NumberOfLike { get; set; }
         public int NumberOfDisLike { get; set; }
 
-        public virtual Post Post { get; set; }
+        public virtual Blog Blog { get; set; }
         public virtual List<LikeOrDisLikes> Vote { get; set; }
 
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebAppBS.Model.VM
 {
-   public class PostDataVM
+   public class BlogDataVM
     {
         public string Content { get; set; }
         public string User { get; set; }

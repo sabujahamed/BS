@@ -12,7 +12,7 @@ namespace WebAppDBContext
         {
             Database.EnsureCreated();
         }
-        public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<Blog> Blog { get; set; }     
         public virtual DbSet<LikeOrDisLikes> LikeOrDisLikes { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }

@@ -11,14 +11,13 @@ namespace WebAppBS.Model.VM
     }
 
 
-    public class PostFilterPagination
+    public class BlogFilterPagination
     {
-        public PostFilter postFilter { get; set; }
+        public BlogFilter blogFilter { get; set; }
         public Pagination Pagination { get; set; }
     }
 
-
-    public class PostFilter
+    public class BlogFilter
     {
         public string User { get; set; }
 

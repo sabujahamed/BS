@@ -19,12 +19,39 @@ namespace WebAppDBContext.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebAppDBContext.Model.Comments", b =>
+            modelBuilder.Entity("WebAppBS.Model.Blog", b =>
+                {
+                    b.Property<int>("BlogID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BlogContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumberOfComments")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlogID");
+
+                    b.ToTable("Blog");
+                });
+
+            modelBuilder.Entity("WebAppBS.Model.Comments", b =>
                 {
                     b.Property<int>("CommentsID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BlogID")
+                        .HasColumnType("int");
 
                     b.Property<string>("CommentContent")
                         .HasColumnType("nvarchar(max)");
@@ -46,12 +73,12 @@ namespace WebAppDBContext.Migrations
 
                     b.HasKey("CommentsID");
 
-                    b.HasIndex("PostID");
+                    b.HasIndex("BlogID");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("WebAppDBContext.Model.LikeOrDisLikes", b =>
+            modelBuilder.Entity("WebAppBS.Model.LikeOrDisLikes", b =>
                 {
                     b.Property<int>("VoteID")
                         .ValueGeneratedOnAdd()
@@ -77,31 +104,7 @@ namespace WebAppDBContext.Migrations
                     b.ToTable("LikeOrDisLikes");
                 });
 
-            modelBuilder.Entity("WebAppDBContext.Model.Post", b =>
-                {
-                    b.Property<int>("PostID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NumberOfComments")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PostID");
-
-                    b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("WebAppDBContext.Model.User", b =>
+            modelBuilder.Entity("WebAppBS.Model.User", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -116,18 +119,16 @@ namespace WebAppDBContext.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("WebAppDBContext.Model.Comments", b =>
+            modelBuilder.Entity("WebAppBS.Model.Comments", b =>
                 {
-                    b.HasOne("WebAppDBContext.Model.Post", "Post")
+                    b.HasOne("WebAppBS.Model.Blog", "Blog")
                         .WithMany("Comments")
-                        .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BlogID");
                 });
 
-            modelBuilder.Entity("WebAppDBContext.Model.LikeOrDisLikes", b =>
+            modelBuilder.Entity("WebAppBS.Model.LikeOrDisLikes", b =>
                 {
-                    b.HasOne("WebAppDBContext.Model.Comments", "Comments")
+                    b.HasOne("WebAppBS.Model.Comments", "Comments")
                         .WithMany("Vote")
                         .HasForeignKey("CommentsID")
                         .OnDelete(DeleteBehavior.Cascade)
